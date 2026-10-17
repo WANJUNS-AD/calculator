@@ -22,21 +22,22 @@ ament_target_dependencies(calculator_publisher rclcpp std_msgs)
 add_executable(calculator_subscriber src/calculator_subscriber.cpp)
 ament_target_dependencies(calculator_subscriber rclcpp std_msgs)
 
-install(TARGETS
-  add_two_ints_server
-  add_two_ints_client
-  calculator_publisher
-  calculator_subscriber
+install(
+  TARGETS
+    add_two_ints_server
+    add_two_ints_client
+    calculator_publisher
+    calculator_subscriber
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
-)
+install(DIRECTORY launch/ DESTINATION share/${PROJECT_NAME}/launch)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
+  find_package(launch_testing_ament_cmake REQUIRED)
+  add_launch_test(test/test_add_two_ints.py)
 endif()
 
 ament_package()
